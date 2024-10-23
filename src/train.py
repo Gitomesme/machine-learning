@@ -5,6 +5,9 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 import os
+import matplotlib.pyplot as plt
+import numpy as np
+import torchvision
 
 transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5,),(0.5,))])
 
@@ -36,7 +39,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Boucle d'entraînement
-def train_model(model, train_loader, criterion, optimizer, epochs=10):
+def train_model(model, train_loader, criterion, optimizer, epochs=2):
     for epoch in range(epochs):
         model.train()  # Mode entraînement
         running_loss = 0.0
@@ -79,3 +82,20 @@ evaluate_model(model, test_loader)
 
 torch.save(model.state_dict(), "models/cnn_model.pth")
 print("Modèle sauvegardé dans models/cnn_model.pth")
+
+# Fonction pour afficher les images
+def imshow(img):
+    img = img / 2 + 0.5  # Dénormaliser
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.show()
+
+# Afficher des exemples du DataLoader
+dataiter = iter(train_loader)
+images, labels = next(dataiter)
+
+# Affiche les premières images
+imshow(torchvision.utils.make_grid(images))
+
+# Affiche les labels correspondants
+print('Labels:', ' '.join(f'{labels[j].item()}' for j in range(8)))
