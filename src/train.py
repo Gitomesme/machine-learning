@@ -36,7 +36,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Boucle d'entraînement
-def train_model(model, train_loader, criterion, optimizer, epochs=5):
+def train_model(model, train_loader, criterion, optimizer, epochs=10):
     for epoch in range(epochs):
         model.train()  # Mode entraînement
         running_loss = 0.0
