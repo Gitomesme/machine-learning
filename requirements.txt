@@ -1,4 +1,6 @@
-tensorflow
+torch
 numpy
 pandas
 pytest
+torchvision
+matplotlib
